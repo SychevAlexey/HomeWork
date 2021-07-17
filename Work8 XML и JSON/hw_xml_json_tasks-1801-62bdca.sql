@@ -66,18 +66,42 @@ SELECT
 /*
 2. Выгрузить данные из таблицы StockItems в такой же xml-файл, как StockItems.xml
 -FOR XML-
-время - 1.29
 */
-SELECT * FROM [Warehouse].[StockItems] FOR XML PATH('StockItem'),ROOT('StockItems');
+--	Работающий запрос ниже
 
- -- Запрос отрабатывает, но данные не появляются
+declare @cmd_xml varchar(8000)
+set @cmd_xml= 'bcp "SELECT * FROM [DESKTOP-ROCJSCE\FLYZIG].WideWorldImporters.[Warehouse].[StockItems] FOR XML PATH" queryout "d:\TEST\StockItems2.xml" -T -q -w -e'
+exec xp_cmdshell @cmd_xml, no_output
+/*
+	Непонятная штука, потратил много времени на выяснение причины, так и не нашел
+	-	Сетевой доступ открыт (в конфигураторе TCP/IP)
+	-	Баловался с правами на пользователя. почти все дал
+	-	обновил версию BCP до 15
+	-	Драйвер ODBC стоит новый
+*/
+--	Вывод ошибок 
+--SQLState = 08001, NativeError = 2
+--Error = [Microsoft][ODBC Driver 13 for SQL Server]Поставщик именованных каналов: Не удалось открыть соединение с SQL Server [2]. 
+--SQLState = 08001, NativeError = 2
+--Error = [Microsoft][ODBC Driver 13 for SQL Server]При установлении соединения с сервером SQL Server произошла ошибка, связанная с сетью или с определенным экземпляром. Сервер не найден или недоступен. Убедитесь, что имя экземпляра указано правильно и на с
+--ервере SQL Server разрешены удаленные соединения. Дополнительные сведения см. в электронной документации по SQL Server.
+--SQLState = S1T00, NativeError = 0
+--Error = [Microsoft][ODBC Driver 13 for SQL Server]Время ожидания входа в систему истекло.
 
---declare @cmd_xml varchar(8000)
---set @cmd_xml= 'bcp "SELECT * FROM [Warehouse].[StockItems] FOR XML PATH" queryout "D:\StockItems2.xml" -T -q -w -e'
---exec xp_cmdshell @cmd_xml, no_output
-
----------------
-
+-- сам по себе запрос работает, по видимому какие то неприятности с програмкой BCP
+select 
+		 [StockItemName] AS [@Name]
+		,[SupplierID] AS [SupplierID]
+		,[UnitPackageID] AS [Package/UnitPackageID]
+		,[OuterPackageID] AS [Package/OuterPackageID]
+		,[QuantityPerOuter] AS [Package/QuantityPerOuter]
+		,[TypicalWeightPerUnit] AS [Package/TypicalWeightPerUnit]
+		,[LeadTimeDays] AS [LeadTimeDays]
+		,[IsChillerStock] AS [IsChillerStock]
+		,[TaxRate] AS [TaxRate]
+		,[UnitPrice] AS [UnitPrice]
+from [DESKTOP-ROCJSCE\FLYZIG].WideWorldImporters.[Warehouse].[StockItems] FOR XML PATH('Item'),ROOT('StockItems')
+																			--	закрывающий тэг / элемент верхнего уровня
 
 /*
 3. В таблице Warehouse.StockItems в колонке CustomFields есть данные в JSON.
@@ -88,14 +112,17 @@ SELECT * FROM [Warehouse].[StockItems] FOR XML PATH('StockItem'),ROOT('StockItem
 - FirstTag (из поля CustomFields, первое значение из массива Tags)
 Время видео
 -0.52
+0.56
 -0.08
+1.24
 */
 
 SELECT StockItemID, 
        StockItemName, 
        JSON_VALUE(CustomFields, '$.CountryOfManufacture') AS [CountryOfManufacture], 
-       JSON_VALUE(CustomFields, '$.Range') AS [Range]
-FROM [Warehouse].[StockItems];
+       JSON_VALUE(CustomFields, '$.Tags[0]') AS Tags
+FROM Warehouse.StockItems
+;
 
 /*
 4. Найти в StockItems строки, где есть тэг "Vintage".
