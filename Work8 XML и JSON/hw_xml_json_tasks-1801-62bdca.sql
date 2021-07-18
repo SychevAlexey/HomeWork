@@ -72,23 +72,13 @@ SELECT
 declare @cmd_xml varchar(8000)
 set @cmd_xml= 'bcp "SELECT * FROM [DESKTOP-ROCJSCE\FLYZIG].WideWorldImporters.[Warehouse].[StockItems] FOR XML PATH" queryout "d:\TEST\StockItems2.xml" -T -q -w -e'
 exec xp_cmdshell @cmd_xml, no_output
-/*
-	Непонятная штука, потратил много времени на выяснение причины, так и не нашел
-	-	Сетевой доступ открыт (в конфигураторе TCP/IP)
-	-	Баловался с правами на пользователя. почти все дал
-	-	обновил версию BCP до 15
-	-	Драйвер ODBC стоит новый
-*/
---	Вывод ошибок 
---SQLState = 08001, NativeError = 2
---Error = [Microsoft][ODBC Driver 13 for SQL Server]Поставщик именованных каналов: Не удалось открыть соединение с SQL Server [2]. 
---SQLState = 08001, NativeError = 2
---Error = [Microsoft][ODBC Driver 13 for SQL Server]При установлении соединения с сервером SQL Server произошла ошибка, связанная с сетью или с определенным экземпляром. Сервер не найден или недоступен. Убедитесь, что имя экземпляра указано правильно и на с
---ервере SQL Server разрешены удаленные соединения. Дополнительные сведения см. в электронной документации по SQL Server.
---SQLState = S1T00, NativeError = 0
---Error = [Microsoft][ODBC Driver 13 for SQL Server]Время ожидания входа в систему истекло.
 
--- сам по себе запрос работает, по видимому какие то неприятности с програмкой BCP
+/*так работает, пытался сделать неделю, как оказалось, нужно было посмотреть следующий вебинар :(
+	но все отдельно c выборкой нужных таблиц в формате не рпботает все равно выгружаться не хочет
+*/
+exec master..xp_cmdshell 'bcp "SELECT * FROM WideWorldImporters.[Warehouse].[StockItems] FOR XML PATH" queryout  "D:\StockItems2.xml" -T -w -t, -S DESKTOP-ROCJSCE\FLYZIG'
+
+
 select 
 		 [StockItemName] AS [@Name]
 		,[SupplierID] AS [SupplierID]
@@ -102,6 +92,21 @@ select
 		,[UnitPrice] AS [UnitPrice]
 from [DESKTOP-ROCJSCE\FLYZIG].WideWorldImporters.[Warehouse].[StockItems] FOR XML PATH('Item'),ROOT('StockItems')
 																			--	закрывающий тэг / элемент верхнего уровня
+/* */
+exec master..xp_cmdshell
+		'bcp "SELECT 
+		 [StockItemName] AS [@Name]
+		,[SupplierID] AS [SupplierID]
+		,[UnitPackageID] AS [Package/UnitPackageID]
+		,[OuterPackageID] AS [Package/OuterPackageID]
+		,[QuantityPerOuter] AS [Package/QuantityPerOuter]
+		,[TypicalWeightPerUnit] AS [Package/TypicalWeightPerUnit]
+		,[LeadTimeDays] AS [LeadTimeDays]
+		,[IsChillerStock] AS [IsChillerStock]
+		,[TaxRate] AS [TaxRate]
+		,[UnitPrice] AS [UnitPrice]
+ FROM  WideWorldImporters.[Warehouse].[StockItems] FOR XML PATH (''Item''),ROOT(''StockItems'')" queryout  "D:\StockItems2.xml" -T -w -t, -S DESKTOP-ROCJSCE\FLYZIG'
+ 
 
 /*
 3. В таблице Warehouse.StockItems в колонке CustomFields есть данные в JSON.
