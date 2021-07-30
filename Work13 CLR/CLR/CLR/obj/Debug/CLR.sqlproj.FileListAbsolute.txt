@@ -1,0 +1,10 @@
+D:\CLR\CLR\CLR\bin\Debug\CLR.dacpac
+D:\CLR\CLR\CLR\bin\Debug\CLR.dll
+D:\CLR\CLR\CLR\bin\Debug\CLR.pdb
+D:\CLR\CLR\CLR\obj\Debug\CLR.sqlprojAssemblyReference.cache
+D:\CLR\CLR\CLR\obj\Debug\Model.xml
+D:\CLR\CLR\CLR\obj\Debug\refactor.xml
+D:\CLR\CLR\CLR\obj\Debug\postdeploy.sql
+D:\CLR\CLR\CLR\obj\Debug\predeploy.sql
+D:\CLR\CLR\CLR\obj\Debug\CLR.dll
+D:\CLR\CLR\CLR\obj\Debug\CLR.pdb
