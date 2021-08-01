@@ -1,0 +1,655 @@
+{
+  "paper": {
+    "name": "A4",
+    "leftMargin": 0.5,
+    "rightMargin": 0.5,
+    "topMargin": 0.5,
+    "bottomMargin": 0.5,
+    "isPortriat": true
+  },
+  "modelVersion": 2.01,
+  "defaultSchema": "Default",
+  "server": {
+    "objectType": "Server_CONCEPTUAL",
+    "name": "Default",
+    "schemas": [
+      {
+        "objectType": "Schema_CONCEPTUAL",
+        "name": "Default",
+        "tables": [
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "SOURSE_TABLE",
+            "oldName": "",
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_CONCEPTUAL",
+                "name": "fk_SOURSE_TABLE_SPR_MONTH_1",
+                "referencedSchema": "Default",
+                "referencedTable": "SPR_MONTH",
+                "sourceCardinality": "OneOrManyRelationship",
+                "targetCardinality": "OneAndOnlyOneRelationship",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_CONCEPTUAL",
+                "name": "fk_SOURSE_TABLE_SPR_DIV_CFO_1",
+                "referencedSchema": "Default",
+                "referencedTable": "SPR_DIV_CFO",
+                "sourceCardinality": "OneOrManyRelationship",
+                "targetCardinality": "OneAndOnlyOneRelationship",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_CONCEPTUAL",
+                "name": "fk_SOURSE_TABLE_SPR_JOB_TITLE_1",
+                "referencedSchema": "Default",
+                "referencedTable": "SPR_JOB_TITLE",
+                "sourceCardinality": "OneOrManyRelationship",
+                "targetCardinality": "OneAndOnlyOneRelationship",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_CONCEPTUAL",
+                "name": "fk_SOURSE_TABLE_SPR_FUNK_1",
+                "referencedSchema": "Default",
+                "referencedTable": "SPR_FUNK",
+                "sourceCardinality": "OneOrManyRelationship",
+                "targetCardinality": "OneAndOnlyOneRelationship",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_CONCEPTUAL",
+                "name": "fk_SOURSE_TABLE_SPR_SOURCE_NAME_1",
+                "referencedSchema": "Default",
+                "referencedTable": "SPR_SOURCE_NAME",
+                "sourceCardinality": "OneOrManyRelationship",
+                "targetCardinality": "OneAndOnlyOneRelationship",
+                "oldName": ""
+              }
+            ]
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "SPR_FUNK",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "SPR_Capitalized",
+            "oldName": "",
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_CONCEPTUAL",
+                "name": "fk_SPR_Capitalized_SOURSE_TABLE_1",
+                "referencedSchema": "Default",
+                "referencedTable": "SOURSE_TABLE",
+                "sourceCardinality": "OneAndOnlyOneRelationship",
+                "targetCardinality": "OneOrManyRelationship",
+                "oldName": ""
+              }
+            ]
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "SPR_SOURCE_NAME",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "SPR_DIV_ZUP",
+            "oldName": "",
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_CONCEPTUAL",
+                "name": "fk_SPR_DIV_ZUP_SOURSE_TABLE_1",
+                "referencedSchema": "Default",
+                "referencedTable": "SOURSE_TABLE",
+                "sourceCardinality": "OneAndOnlyOneRelationship",
+                "targetCardinality": "OneOrManyRelationship",
+                "oldName": ""
+              }
+            ]
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "SPR_DIV_CFO",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "SPR_JOB_TITLE",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "SPR_MONTH",
+            "oldName": "",
+            "foreignKeys": []
+          },
+          {
+            "objectType": "Table_CONCEPTUAL",
+            "name": "SPR_COSTS",
+            "oldName": "",
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_CONCEPTUAL",
+                "name": "fk_SPR_COSTS_SOURSE_TABLE_1",
+                "referencedSchema": "Default",
+                "referencedTable": "SOURSE_TABLE",
+                "sourceCardinality": "OneAndOnlyOneRelationship",
+                "targetCardinality": "OneOrManyRelationship",
+                "oldName": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "diagrams": [
+    {
+      "name": "Diagram 1",
+      "paperWidth": 2,
+      "paperHeight": 1,
+      "tableFont": "Arial Unicode MS",
+      "tableFontSize": 14,
+      "isBalckWhite": false,
+      "showDBSchemaName": false,
+      "showViewRelations": true,
+      "notation": "crowsfoot",
+      "showFieldComment": false,
+      "showTableComment": false,
+      "shapes": [
+        {
+          "type": "table",
+          "schemaName": "Default",
+          "tableName": "SOURSE_TABLE",
+          "x": 340,
+          "y": 430,
+          "width": 200,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "Default",
+          "tableName": "SPR_DIV_CFO",
+          "x": 40,
+          "y": 140,
+          "width": 200,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "Default",
+          "tableName": "SPR_JOB_TITLE",
+          "x": 30,
+          "y": 430,
+          "width": 200,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "Default",
+          "tableName": "SPR_DIV_ZUP",
+          "x": 730,
+          "y": 350,
+          "width": 200,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "Default",
+          "tableName": "SPR_SOURCE_NAME",
+          "x": 740,
+          "y": 590,
+          "width": 200,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "Default",
+          "tableName": "SPR_Capitalized",
+          "x": 750,
+          "y": 470,
+          "width": 200,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "Default",
+          "tableName": "SPR_FUNK",
+          "x": 340,
+          "y": 580,
+          "width": 200,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "Default",
+          "tableName": "SPR_MONTH",
+          "x": 720,
+          "y": 240,
+          "width": 200,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "note",
+          "name": "Note 1",
+          "x": 30,
+          "y": 560,
+          "width": 280,
+          "height": 380,
+          "text": "SOURCE_TABLE - Исходная таблица источник данных\r\nSPR_Capitalized - справочник капитализации сумм\r\nSPR_SOURCE_NAME - справочик исходников\r\nSPR_FUNK - справочник функций\r\nSPR_MONTH - справочник периода\r\nSPR_JOB_TITLE - справочник должностей\r\nSPR_DIV_ZUP - справочник Подразделений ЗУП\r\nSPR_DIV_CFO - справочник ЦФО\r\nSPR_COSTS - справочник расходов",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "table",
+          "schemaName": "Default",
+          "tableName": "SPR_COSTS",
+          "x": 490,
+          "y": 180,
+          "width": 200,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        }
+      ],
+      "layers": [],
+      "relations": [
+        {
+          "name": "fk_SOURSE_TABLE_SPR_MONTH_1",
+          "sourceTableName": "SOURSE_TABLE",
+          "sourceSchemaName": "Default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 555,
+              "y": 440
+            },
+            {
+              "x": 590,
+              "y": 440
+            },
+            {
+              "x": 590,
+              "y": 300
+            },
+            {
+              "x": 705,
+              "y": 300
+            }
+          ],
+          "label": {
+            "x": 551,
+            "y": 442,
+            "width": 234,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_SPR_DIV_ZUP_SOURSE_TABLE_1",
+          "sourceTableName": "SPR_DIV_ZUP",
+          "sourceSchemaName": "Default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 715,
+              "y": 410
+            },
+            {
+              "x": 620,
+              "y": 410
+            },
+            {
+              "x": 620,
+              "y": 470
+            },
+            {
+              "x": 555,
+              "y": 470
+            }
+          ],
+          "label": {
+            "x": 725,
+            "y": 372,
+            "width": 236,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_SOURSE_TABLE_SPR_DIV_CFO_1",
+          "sourceTableName": "SOURSE_TABLE",
+          "sourceSchemaName": "Default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 380,
+              "y": 415
+            },
+            {
+              "x": 380,
+              "y": 290
+            },
+            {
+              "x": 150,
+              "y": 290
+            },
+            {
+              "x": 150,
+              "y": 255
+            }
+          ],
+          "label": {
+            "x": 146,
+            "y": 385,
+            "width": 236,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_SOURSE_TABLE_SPR_JOB_TITLE_1",
+          "sourceTableName": "SOURSE_TABLE",
+          "sourceSchemaName": "Default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 325,
+              "y": 480
+            },
+            {
+              "x": 245,
+              "y": 480
+            }
+          ],
+          "label": {
+            "x": 90,
+            "y": 442,
+            "width": 245,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_SOURSE_TABLE_SPR_FUNK_1",
+          "sourceTableName": "SOURSE_TABLE",
+          "sourceSchemaName": "Default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 440,
+              "y": 545
+            },
+            {
+              "x": 440,
+              "y": 565
+            }
+          ],
+          "label": {
+            "x": 442,
+            "y": 495,
+            "width": 216,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_SOURSE_TABLE_SPR_SOURCE_NAME_1",
+          "sourceTableName": "SOURSE_TABLE",
+          "sourceSchemaName": "Default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 555,
+              "y": 520
+            },
+            {
+              "x": 610,
+              "y": 520
+            },
+            {
+              "x": 610,
+              "y": 610
+            },
+            {
+              "x": 725,
+              "y": 610
+            }
+          ],
+          "label": {
+            "x": 545,
+            "y": 482,
+            "width": 283,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_SPR_Capitalized_SOURSE_TABLE_1",
+          "sourceTableName": "SPR_Capitalized",
+          "sourceSchemaName": "Default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 735,
+              "y": 510
+            },
+            {
+              "x": 690,
+              "y": 490
+            },
+            {
+              "x": 670,
+              "y": 490
+            },
+            {
+              "x": 555,
+              "y": 490
+            }
+          ],
+          "label": {
+            "x": 491,
+            "y": 472,
+            "width": 254,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_SPR_COSTS_SOURSE_TABLE_1",
+          "sourceTableName": "SPR_COSTS",
+          "sourceSchemaName": "Default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 475,
+              "y": 230
+            },
+            {
+              "x": 440,
+              "y": 230
+            },
+            {
+              "x": 440,
+              "y": 415
+            }
+          ],
+          "label": {
+            "x": 491,
+            "y": 232,
+            "width": 223,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        }
+      ],
+      "viewRelations": []
+    }
+  ]
+}
