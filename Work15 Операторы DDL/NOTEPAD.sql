@@ -9,7 +9,7 @@
 CREATE DATABASE [FOT]
  CONTAINMENT = NONE
  ON  PRIMARY 
-( NAME = FOT, FILENAME = N'D:\HomeWork\Work15 Операторы DDL\FOT.mdf' , 
+( NAME = FOT, FILENAME = N'D:\IMPORT\FOT.mdf' , 
 	SIZE = 8MB , 
 	MAXSIZE = UNLIMITED, 
 	FILEGROWTH = 65536KB )
@@ -18,7 +18,7 @@ GO
 -- Создадим схему
 CREATE SCHEMA FOTF ;
 
-USE FOT
+USE FOT;
 
 
 CREATE TABLE FOTF.T_SPR_RECL
@@ -166,6 +166,9 @@ CONSTRAINT PK_JOB_TITLE_ID PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
+ALTER TABLE FOTF.T_SPR_JOB_TITLE ADD RECL INT;
+
+
 EXEC sys.sp_addextendedproperty @name=N'NAME', @value=N'Справочник Должностей' , @level0type=N'SCHEMA',@level0name=N'FOTF', @level1type=N'TABLE',@level1name=N'T_SPR_JOB_TITLE'
 
 --	Индекс не кластерный так как есть один кластерный, уникальный
@@ -309,6 +312,10 @@ CREATE TABLE FOTF.T_SOURCE_MAIN
 	,	CAPEX	FLOAT	NULL
  )
  ;
+
+ ALTER TABLE FOTF.T_SOURCE_MAIN ALTER COLUMN SUMMA NUMERIC(20,8)
+ ALTER TABLE FOTF.T_SOURCE_MAIN ALTER COLUMN CAPEX NUMERIC(20,8)
+
 EXEC sys.sp_addextendedproperty @name=N'NAME',				@value=N'Камулятивная таличка с суммами'						, @level0type=N'SCHEMA',@level0name=N'FOTF', @level1type=N'TABLE',@level1name=N'T_SOURCE_MAIN'
 EXEC sys.sp_addextendedproperty @name=N'MONTH_ID',			@value=N'Период'												, @level0type=N'SCHEMA',@level0name=N'FOTF', @level1type=N'TABLE',@level1name=N'T_SOURCE_MAIN'
 EXEC sys.sp_addextendedproperty @name=N'CFO_ID',			@value=N'Идентификатор Подразделения КИС'						, @level0type=N'SCHEMA',@level0name=N'FOTF', @level1type=N'TABLE',@level1name=N'T_SOURCE_MAIN'
@@ -323,8 +330,7 @@ EXEC sys.sp_addextendedproperty @name=N'COST_ITEM_ID',		@value=N'КодВида�
 EXEC sys.sp_addextendedproperty @name=N'SUMMA',				@value=N'СуммаОпекса'											, @level0type=N'SCHEMA',@level0name=N'FOTF', @level1type=N'TABLE',@level1name=N'T_SOURCE_MAIN'
 EXEC sys.sp_addextendedproperty @name=N'CAPEX',				@value=N'СуммаКапекса'											, @level0type=N'SCHEMA',@level0name=N'FOTF', @level1type=N'TABLE',@level1name=N'T_SOURCE_MAIN'
 
--- Проверка даты, что бы была больше 202101
-ALTER TABLE FOTF.T_SPR_SOURCE ADD CONSTRAINT CHEK_MONTH CHECK (MONTH_ID>202101);
+
 
 -- Индекс
 CREATE INDEX ind_OBJCT_ID ON FOTF.T_SOURCE_MAIN (MONTH_ID);
@@ -373,9 +379,102 @@ REFERENCES FOTF.T_SPR_COSTS (COST_ITEM_ID)
 
 SELECT * FROM FOTF.T_SPR_COSTS 
 ----------------------------------------------------------------------------------------------
-CREATE VIEW FOTF.V_SPR_CAPITALIZED
+CREATE VIEW FOTF.V_DIM_CAPITALIZED
 AS
 SELECT CAST(0 AS INT) CAPITALIZ_ID	, CAST('Не капитализация' AS VARCHAR(16)) AS DESCRIPTION
 UNION ALL
 SELECT CAST(1 AS INT)				, CAST('Капитализация' AS VARCHAR(16))
 ;
+
+
+---------------------------------------------------------------------------------------
+
+  INSERT INTO [FOT].[FOTF].[T_SPR_SOURCE] VALUES
+  (2,'ЗУП',1,'Основные начисления'),
+  (3,'Бонусы',1,'Основные начисления'),
+  (4,'Резерв на оплату отпусков',1,'Основные начисления'),
+  (5,'Данные КИС',2,'Дополнительные начисления'),
+  (6,'Данные Вурш',3,'Данные мативационных файлов'),
+  (7,'Данные СВП',3,'Данные мативационных файлов');
+
+
+  INSERT INTO [FOT].[FOTF].[T_SPR_JOB_TITLE] VALUES 
+   (1,'Продавец')
+  ,(2,'Директор Магазина')
+  ,(3,'Товаровед')
+  ,(4,'Разработчик')
+  ,(5,'Аналитик')
+  ,(6,'Начальник отдела')
+  ,(7,'Директор департамента')
+  ,(8,'Секретарь')
+  ,(9,'Менеджер')
+  ,(10,'Системотехник')
+  ,(11,'Директор филиала')
+  ,(12,'Данные КИС')
+  ,(13,'Сторож')
+  ,(14,'Уборщица');
+
+  UPDATE [FOT].[FOTF].[T_SPR_JOB_TITLE] 
+  SET RECL = 3
+  ;
+
+   UPDATE [FOT].[FOTF].[T_SPR_JOB_TITLE] 
+  SET RECL = 1
+  WHERE JOB_TITLE_ID = 14
+  ;
+
+  UPDATE [FOT].[FOTF].[T_SPR_JOB_TITLE] 
+  SET RECL = 2
+  WHERE JOB_TITLE_ID = 13
+  ;
+
+  INSERT INTO [FOT].[FOTF].[T_SPR_COSTS] VALUES
+  (1,'Оклад по дням' ,1,0,1,1),
+  (2,'Оклад по Часам',2,0,1,1),
+  (3,'Страховые отчисления',4,0,1,1),
+  (4,'Усиление СВП',2,0,1,1),
+  (5,'Вурш',2,0,1,1),
+  (6,'Квартальные бонусы',3,0,1,1),
+  (7,'Полугодовые бонусы',3,0,1,0),
+  (8,'Годовые бонусы',3,0,1,1),
+  (9,'Отпускные',5,0,1,1),
+  (10,'Больничные',6,0,1,1),
+  (11,'Командировочные',7,0,1,1),
+  (12,'Резерв на оплату отпуска',8,0,1,1);
+
+
+  INSERT INTO [FOT].[FOTF].[T_SPR_STAT] VALUES
+  (1,'Оплата труда-Постоянная часть'	,1,'Оплата труда-Постоянная часть'	,14,	'Расходы на регулярную оплату труда',13,'Расходы на персонал'),
+  (2,'Оплата труда-Часовая часть'		,2,'Оплата труда-Часовая часть'		,14,	'Расходы на регулярную оплату труда',13,'Расходы на персонал'),
+  (3,'Оплата труда-Премиальная часть'	,3,'Оплата труда-Премиальная часть'	,14,	'Расходы на регулярную оплату труда',13,'Расходы на персонал'),
+  (4,'Налоги и взносы'					,4,'Налоги и взносы'				,4,		'Налоги и взносы'					,13,'Расходы на персонал'),
+  (5,'Оплата труда-Отпусные'			,5,'Оплата труда-Отпусные'			,15,	'Расходы на отпуск'					,13,'Расходы на персонал'),
+  (6,'Оплата труда-Больничные'			,6,'Оплата труда-Больничные'		,6,		'Оплата труда-Больничные'			,13,'Расходы на персонал'),
+  (7,'Командировочные-проезд'			,7,'Командировочные-проезд'			,15,	'Командировочные расходы'			,16,'Прочие доходы/расходы'),
+  (8,'Резерв на уплату отпусков'		,8,'Резерв на уплату отпусков'		,15,	'Расходы на отпуск'					,13,'Расходы на персонал');
+
+  INSERT INTO [FOT].[FOTF].[T_SOURCE_MAIN]
+  ([MONTH_ID]
+      ,[CFO_ID]
+      ,[CFO_ID2]
+      ,[STAFF_DIV_ID]
+      ,[JOB_TITLE_ID]
+      ,[JOB_TITLE_NAME]
+      ,[CAPITALIZ]
+      ,[ATTREBUTE_ID]
+      ,[IST]
+      ,[COST_ITEM_ID]
+      ,[SUMMA]
+      ,[CAPEX])
+  SELECT [MONTH_ID]
+      ,[CFO_ID]
+      ,[CFO_ID2]
+      ,[STAFF_DIV_ID]
+      ,[JOB_TITLE_ID]
+      ,[JOB_TITLE_NAME]
+      ,[CAPITALIZ]
+      ,[ATTREBUTE_ID]
+      ,[IST]
+      ,[COST_ITEM_ID]
+      ,[SUMMA]
+      ,[CAPEX] FROM DBo.MASSIV
